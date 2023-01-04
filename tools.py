@@ -1,0 +1,2 @@
+def analyseInputUser(session):
+    pass
