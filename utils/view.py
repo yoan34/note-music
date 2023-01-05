@@ -1,33 +1,34 @@
-
-
-class View:
-    def __init__(self):
-        self.dispatcher = {
-            'home': self.home,
-            'find_note_positif': self.findNotePositif,
-            'find_note_negatif': self.findNoteNegatif,
-            'find_demi_ton_positif': self.findDemiTonPositif,
-            'find_demi_ton_negatif': self.findDemiTonNegatif,
-        }
-    
-    
-def home(self):
-    print(f"{'exercice guitar':-^60}")
-        
 def showView(path, session):
-    pass
+    dispatcher = {
+        'home': home,
+        'find_note_positif': findNotePositif,
+        'find_note_negatif': findNoteNegatif,
+        'find_demi_ton_positif': findDemiTonPositif,
+        'find_demi_ton_negatif': findNoteNegatif,
+    }
+    dispatcher[path](session)
+        
+def home(session):
+    print(f"{'exercice guitar':-^60}")
+    print('')
+    print(f"{'1 - find note positif':>40}")
+    print(f"{'2 - find note negatif':>40}")
+    print(f"{'3 - find demi-ton positif':>44}")
+    print(f"{'4 - find demi-ton positif':>44}")
+    print()
+    print("-"*60)
         
     
-def findNotePositif(self):
+def findNotePositif(session):
     pass
     
-def findNoteNegatif(self):
+def findNoteNegatif(session):
     pass
     
-def findDemiTonPositif(self):
+def findDemiTonPositif(session):
     pass
     
-def findDemiTonNegatif(self):
+def findDemiTonNegatif(session):
     pass
     
     
