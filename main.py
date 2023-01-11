@@ -7,16 +7,25 @@
 from utils.view import showView
 from tools import analyseInputUser
 
-user = ''
-PATH = 'home'
-session = {}
+session = {
+    'user': '',
+    'path': 'home',
+    'start': 0,
+    'end': 0,
+    'name_exercise': '',
+    'question': 0,
+    'answer': 0,
+    'good_answer': 0,
+}
 
 
 
-while True or user.upper() != 'Q':
+while True:
     
-    showView(PATH, session)
+    showView(session)
     
-    user = input()
-    
-    analyseInputUser(session)
+    session['user'] = input()
+    if session['user'].upper() == 'Q':
+        break
+
+    session = analyseInputUser(session)

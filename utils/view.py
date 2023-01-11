@@ -1,12 +1,18 @@
-def showView(path, session):
+import os
+import time
+
+clear = lambda: os.system('clear')
+
+def showView(session):
     dispatcher = {
         'home': home,
-        'find_note_positif': findNotePositif,
-        'find_note_negatif': findNoteNegatif,
-        'find_demi_ton_positif': findDemiTonPositif,
-        'find_demi_ton_negatif': findNoteNegatif,
+        'find_note_positif': find_note_positif,
+        'find_note_negatif': find_note_negatif,
+        'find_demi_ton_positif': find_demi_ton_positif,
+        'find_demi_ton_negatif': find_demi_ton_negatif,
     }
-    dispatcher[path](session)
+    clear()
+    dispatcher[session['path']](session)
         
 def home(session):
     print(f"{'exercice guitar':-^60}")
@@ -19,16 +25,19 @@ def home(session):
     print("-"*60)
         
     
-def findNotePositif(session):
+def find_note_positif(session):
+    session['start'] = time.time()
+    session['name_exercise'] = __name__
+    print(f"{'exercice: find note positif':-^60}")
+    
+    
+def find_note_negatif(session):
     pass
     
-def findNoteNegatif(session):
+def find_demi_ton_positif(session):
     pass
     
-def findDemiTonPositif(session):
-    pass
-    
-def findDemiTonNegatif(session):
+def find_demi_ton_negatif(session):
     pass
     
     
