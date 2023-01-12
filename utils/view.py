@@ -28,7 +28,8 @@ def home(session):
 def find_note_positif(session):
     session['start'] = time.time()
     session['name_exercise'] = __name__
-    print(f"{'exercice: find note positif':-^60}")
+    print(session['name_exercise'])
+    print(f"{'exercice: {}'.format(__name__):-^60}")
     
     
 def find_note_negatif(session):

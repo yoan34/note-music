@@ -24,7 +24,7 @@ while True:
     
     showView(session)
     
-    session['user'] = input()
+    session['user'] = input('> '.rjust(20))
     if session['user'].upper() == 'Q':
         break
 
