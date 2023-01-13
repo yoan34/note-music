@@ -1,3 +1,6 @@
+NOTES = ["do", "do#", "re", "re#", "mi", "fa", "fa#",
+         "sol", "sol#", "la", "la#", "si"]
+
 def analyseInputUser(session):
     path = session['path']
     choice = session['user']

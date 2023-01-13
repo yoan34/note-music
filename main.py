@@ -5,7 +5,7 @@
 # le nombre de demi-ton entre ces deux notes.
 
 from utils.view import showView
-from tools import analyseInputUser
+from utils.tools import analyseInputUser
 
 session = {
     'user': '',
