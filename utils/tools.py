@@ -1,6 +1,8 @@
 NOTES = ["do", "do#", "re", "re#", "mi", "fa", "fa#",
          "sol", "sol#", "la", "la#", "si"]
 
+
+
 def analyseInputUser(session):
     path = session['path']
     choice = session['user']
@@ -18,6 +20,12 @@ def analyseInputUser(session):
             session['path'] = 'find_demi_ton_positif'
         if choice == '4':
             session['path'] = 'find_demi_ton_negatif'
+            
+    if path == 'find_note_positif':
+        if session['question'] is not None:
+            if session['user'] != session['question']['answer']:
+                session['error'] = 'Pas la bonne note'
+                
             
     
     return session

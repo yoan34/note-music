@@ -29,22 +29,18 @@ def home(session):
         
     
 def find_note_positif(session):
-    session['start'] = time.time()
-    session['name_exercise'] = inspect.stack()[0][3]
+    if session['question'] is None:
+        session = init_question(session)
+    if not session['error']:
+        session = next_question(session)
+        
     print(f"{'exercice: {}'.format(session['name_exercise']):-^60}")
-    note = choice(NOTES)
-    demi_ton = choice(list(range(1,12)))
-    index_note = NOTES.index(note)
-    new_index = (index_note + demi_ton) % 12
     
-    question = {
-        "note": note,
-        "demi_ton": demi_ton,
-        "answer": NOTES[new_index],
-    }
+    print(session)
+    session['error'] = ''
     print()
-    print(f"{' '*14}Trouver: {question['note']} + {question['demi_ton']} demi tons".ljust(20))
-    print()
+    print(f"{' '*14}Trouver: {session['question']['note']} + {session['question']['demi_ton']} demi tons".ljust(20))
+    print(session['question']['answer'])
     
     
 def find_note_negatif(session):
@@ -57,3 +53,28 @@ def find_demi_ton_negatif(session):
     pass
     
     
+def init_question(session):
+    session['start'] = time.time()
+    session['name_exercise'] = inspect.stack()[0][3]
+    question = new_question()
+    question["count"] = 1
+    session['question'] = question
+    return session
+
+def next_question(session):
+    question = new_question()
+    question["count"] = session['question']['count'] + 1
+    session['question'] = question
+    return session
+
+def new_question():
+    note = choice(NOTES)
+    demi_ton = choice(list(range(1,12)))
+    index_note = NOTES.index(note)
+    new_index = (index_note + demi_ton) % 12
+    
+    return {
+        "note": note,
+        "demi_ton": demi_ton,
+        "answer": NOTES[new_index],
+    }
