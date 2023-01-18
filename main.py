@@ -9,13 +9,14 @@ from utils.tools import analyseInputUser
 
 session = {
     'user': '',
-    'error': '',
+    'error': 'start',
+    'n_error': 0,
     'path': 'home',
     'start': 0,
     'end': 0,
     'name_exercise': '',
     'question': None,
-    'good_answer': None,
+    'good_answer': 0,
 }
 
 

@@ -1,3 +1,5 @@
+import time
+
 NOTES = ["do", "do#", "re", "re#", "mi", "fa", "fa#",
          "sol", "sol#", "la", "la#", "si"]
 
@@ -25,6 +27,13 @@ def analyseInputUser(session):
         if session['question'] is not None:
             if session['user'] != session['question']['answer']:
                 session['error'] = 'Pas la bonne note'
+                session['n_error'] += 1
+            else:
+                session['good_answer'] += 1
+        if session['question']['count'] == 2:
+            session['end'] = time.time()
+            session['path'] = 'end_session'
+
                 
             
     

@@ -13,6 +13,7 @@ def showView(session):
         'find_note_negatif': find_note_negatif,
         'find_demi_ton_positif': find_demi_ton_positif,
         'find_demi_ton_negatif': find_demi_ton_negatif,
+        'end_session': end_session,
     }
     clear()
     dispatcher[session['path']](session)
@@ -26,13 +27,23 @@ def home(session):
     print(f"{'4 - find demi-ton positif':>44}")
     print()
     print("-"*60)
+
+def end_session(session):
+    print(f"{'exercice: {}'.format(session['name_exercise']):-^60}")
+    # afficher le nombre bonne r&ponse, en %
+    # afficher le temps moyen par réponse.
+    
         
     
 def find_note_positif(session):
     if session['question'] is None:
-        session = init_question(session)
-    if not session['error']:
+        session = next_question(session, first=True)
+    if not session['error'] or session['n_error'] == 3:
         session = next_question(session)
+        session['n_error'] = 0
+    if session['question']['count'] == 2:
+        session['path'] = 'end_session'
+        return
         
     print(f"{'exercice: {}'.format(session['name_exercise']):-^60}")
     
@@ -52,18 +63,16 @@ def find_demi_ton_positif(session):
 def find_demi_ton_negatif(session):
     pass
     
-    
-def init_question(session):
-    session['start'] = time.time()
-    session['name_exercise'] = inspect.stack()[0][3]
-    question = new_question()
-    question["count"] = 1
-    session['question'] = question
-    return session
 
-def next_question(session):
-    question = new_question()
-    question["count"] = session['question']['count'] + 1
+def next_question(session, first=False):
+    if first:
+        session['start'] = time.time()
+        session['name_exercise'] = inspect.stack()[0][3]
+        question = new_question()
+        question["count"] = 1
+    else:
+        question = new_question()
+        question["count"] = session['question']['count'] + 1
     session['question'] = question
     return session
 
