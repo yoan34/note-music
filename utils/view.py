@@ -2,7 +2,7 @@ import os
 import time
 import inspect
 from random import choice
-from utils.tools import NOTES
+from utils.tools import NOTES, NB_QUESTION
 
 clear = lambda: os.system('clear')
 
@@ -19,6 +19,7 @@ def showView(session):
     dispatcher[session['path']](session)
         
 def home(session):
+    print(session)
     print(f"{'exercice guitar':-^60}")
     print('')
     print(f"{'1 - find note positif':>40}")
@@ -29,10 +30,13 @@ def home(session):
     print("-"*60)
 
 def end_session(session):
-    print(f"{'exercice: {}'.format(session['name_exercise']):-^60}")
-    # afficher le nombre bonne r&ponse, en %
-    # afficher le temps moyen par réponse.
-    
+    print(session)
+    print(f"{'exercice: {} [END] '.format(session['name_exercise']):-^60}")
+    print()
+    result = f"good answer: {session['good_answer']}/{session['question']['count']}"
+    result += f"  {(session['good_answer']/session['question']['count']*100):.2f}%"
+    print(result)
+    session['path'] = 'end_session'
         
     
 def find_note_positif(session):
@@ -41,7 +45,7 @@ def find_note_positif(session):
     if not session['error'] or session['n_error'] == 3:
         session = next_question(session)
         session['n_error'] = 0
-    if session['question']['count'] == 2:
+    if session['question']['count'] == NB_QUESTION:
         session['path'] = 'end_session'
         return
         
@@ -67,7 +71,7 @@ def find_demi_ton_negatif(session):
 def next_question(session, first=False):
     if first:
         session['start'] = time.time()
-        session['name_exercise'] = inspect.stack()[0][3]
+        session['name_exercise'] = session['path']
         question = new_question()
         question["count"] = 1
     else:

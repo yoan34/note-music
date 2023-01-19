@@ -30,3 +30,9 @@ while True:
         break
 
     session = analyseInputUser(session)
+    
+    
+# Je dois checker si la boucle de l'exercise 1 est complet.
+# Pourquoi pas faire un call d'api sur Notion pour stocker.
+# Ajouter la END session timestamp et calculer la moy de l'ex.
+
