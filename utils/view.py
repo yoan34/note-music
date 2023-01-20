@@ -1,6 +1,6 @@
 import os
 import time
-import inspect
+import datetime
 from random import choice
 from utils.tools import NOTES, NB_QUESTION
 
@@ -33,10 +33,26 @@ def end_session(session):
     print(session)
     print(f"{'exercice: {} [END] '.format(session['name_exercise']):-^60}")
     print()
-    result = f"good answer: {session['good_answer']}/{session['question']['count']}"
-    result += f"  {(session['good_answer']/session['question']['count']*100):.2f}%"
-    print(result)
-    session['path'] = 'end_session'
+    if session['question'] is not None:
+        session['end'] = time.time()
+
+        result = f"{session['good_answer']}/{session['question']['count']}"
+        result += f"  {(session['good_answer']/session['question']['count']*100):.2f}%"
+        result += f"  {(session['end'] - session['start'])/session['question']['count']:.2f}s"
+        result += f"  {datetime.datetime.now().strftime('%d/%m/%Y')}"
+        print(result)
+        print()
+        print('-'*60)
+        print(f"data/{session['name_exercise']}.txt")
+        f = open(f"data/{session['name_exercise']}.txt", "a")
+        f.write(result+"\n")
+        f.close()
+        session['error'] = 'start'
+        session['n_error'] = 0
+        session['question'] = None
+        session['good_answer'] = 0
+    else:
+        print('Back to home [b]')
         
     
 def find_note_positif(session):

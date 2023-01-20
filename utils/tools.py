@@ -12,12 +12,7 @@ def analyseInputUser(session):
     
     if path == 'end_session':
         if choice == 'b':
-            print('HELLo')
             session['path'] = 'home'
-            session['error'] = 'start'
-            session['n_error'] = 0
-            session['question'] = None
-            session['good_answer'] = 0
     
     if path != 'home' and choice.upper() == 'B':
         session['path'] = 'home'
@@ -43,7 +38,6 @@ def analyseInputUser(session):
             else:
                 session['good_answer'] += 1
         if session['question']['count'] == NB_QUESTION:
-            session['end'] = time.time()
             session['path'] = 'end_session'
 
                 
